@@ -1,0 +1,14 @@
+FROM node:18.16
+
+USER root
+
+WORKDIR /home/node/project
+
+COPY ./app/www/package.json /home/node/project/package.json
+COPY ./app/www/package-lock.json /home/node/project/package-lock.json
+
+RUN npm install
+
+COPY --chown=root:root . .
+
+CMD ["node"]

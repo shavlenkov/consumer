@@ -1,0 +1,137 @@
+#header-block {
+    padding-top: 107px;
+    padding-bottom: 107px;
+    background-size: 100% 100% !important;
+
+    .header-left {
+        padding-left: 100px;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+    }
+
+    #headblockCarousel {
+        width: 100%;
+        max-width: 470px;
+        position: relative;
+
+        .slick-dots {
+            text-align: left;
+        }
+
+        &::before {
+            background-image: url("data:image/svg+xml,%3Csvg width='132' height='29' viewBox='0 0 132 29' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.1933 20.3987C22.5753 20.3385 31.3081 20.2329 40.058 20.2563C40.7071 20.3016 41.3151 21.0082 42.8592 21.9846C38.882 23.0352 35.8068 24.0978 32.6633 24.6447C24.3538 26.006 16.1366 27.0927 7.79303 28.1962C6.78168 28.3299 5.78739 28.5926 4.74195 28.4685C1.36982 28.2586 -0.0577857 26.2175 1.31994 23.0183C2.01732 21.4832 2.85818 20.0603 3.8425 18.7496C7.56105 13.798 11.4231 8.95859 15.2851 4.11918C15.9413 3.24537 17.0279 2.70814 18.4256 1.6051C19.5479 8.1464 13.3393 10.8039 12.6307 16.1445C13.7343 15.7362 14.7286 15.4735 15.5795 15.0986C48.4508 1.04471 82.5937 -2.42133 117.701 2.37999C121.36 2.81428 124.961 3.78093 128.545 4.61869C130.4 5.02921 132.105 6.24668 131.383 8.57201C130.788 10.8806 129.018 11.1147 126.876 10.4798C102.883 3.15914 78.7104 5.17548 54.4893 8.77225C41.8645 10.5731 29.663 13.6296 17.7926 18.2164C16.3267 18.8038 14.8779 19.5201 13.1933 20.3987Z' fill='%231DA2EF'/%3E%3C/svg%3E%0A");
+            width: 132px;
+            height: 29px;
+            position: absolute;
+            display: block;
+            content: '';
+            left: -182px;
+            bottom: 0;
+        }
+
+        .headblock-title {
+            color: var(--white, #FFF);
+
+            /* H1 */
+            font-family: Lato Bold, sans-serif !important;
+            font-size: 60px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: 110%; /* 66px */
+            margin-bottom: 20px;
+        }
+
+        .headblock-subtitle {
+            color: #FFF !important;
+            /* H3 */
+            font-family: Lato, sans-serif !important;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+            position: relative;
+
+            * {
+                color: #ffffff;
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    #header-block {
+        margin-top: 75px !important;
+
+        .header-left {
+            padding-left: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #header-block {
+        background-size: cover !important;
+
+        .row {
+            flex-flow: column-reverse;
+            align-items: center;
+
+            .header-right, .header-left {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+
+            .header-right {
+                margin-bottom: 75px;
+            }
+        }
+
+        #headblockCarousel {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+
+            .headblock-title,
+            .headblock-subtitle {
+                display: flex;
+                text-align: left;
+            }
+
+            &::before {
+                display: none;
+            }
+
+            .slick-dots {
+                text-align: center;
+            }
+        }
+
+        .reservation {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #header-block .reservation {
+        max-width: 500px !important;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #header-block #headblockCarousel .headblock-title {
+        font-size: 35px;
+        font-weight: 600;
+    }
+    #header-block #headblockCarousel .headblock-subtitle {
+        display: block;
+        word-break: break-word;
+        font-size: 25px;
+    }
+}

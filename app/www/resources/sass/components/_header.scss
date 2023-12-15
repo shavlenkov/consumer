@@ -1,0 +1,413 @@
+header {
+    height: auto;
+    width: 100%;
+    background: var(--radial, radial-gradient(74.13% 216.82% at 50% 50%, #2D5CA6 0%, #244A85 100%));
+    padding-top: 23px !important;
+    padding-bottom: 0 !important;
+
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-nav .nav-item:hover {
+        > .nav-link {
+            padding: 23.5px 10px 22.5px 10px;
+            height: 100%;
+            max-height: 70px;
+            background: #1B3764 !important;
+            color: var(--buttons_blocks, #FFE358) !important;
+        }
+
+        .dropdown-menu {
+            display: block;
+        }
+    }
+
+    .header-menu {
+        background: radial-gradient(160.21% 945% at 50% 50%, #254E8F 0%, #1B3B64 100%), #FFF;
+        padding: 0 45px;
+        width: 100%;
+
+        .menu-search {
+            margin-left: auto;
+        }
+
+        .nav-link {
+            display: flex;
+            color: var(--white, #FFF) !important;
+            padding: 0;
+
+            /* body2 */
+            font-family: Proba Pro, sans-serif !important;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px; /* 150% */
+            /* Стилі для вашого бутстрап-діапазону */
+            .dropToggleMenu {
+                display: flex;
+                align-items: center;
+
+                &::after, {
+                    content: ''; /* Очистити вміст, який вже існує */
+                    display: inline-block; /* Зробити елемент блоком для вставки контенту */
+                    width: 16px; /* Ширина, яка відповідає ширині вашого SVG */
+                    height: 17px; /* Висота, яка відповідає висоті вашого SVG */
+                    background-size: contain; /* Розмір фону, щоб співпадав з розміром контенту */
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='17' viewBox='0 0 16 17' fill='none'%3E%3Cpath d='M12.6663 6.5L7.99967 11.1667L3.33301 6.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); /* Додавання вашого SVG як фону */
+                    margin-left: 5px; /* Невеликий відступ від тексту */
+                }
+            }
+
+            /* Зміна кольору при наведенні */
+        }
+
+        .parent-menu-item {
+            &:hover .dropToggleMenu::after {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='17' viewBox='0 0 16 17' fill='none'%3E%3Cpath d='M3.33317 10.5L7.99984 5.83333L12.6665 10.5' stroke='%23FFE358' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            }
+
+            &:hover > a {
+                color: var(--buttons_blocks, #FFE358) !important;
+            }
+        }
+
+        .dropdown-menu {
+            background: #1B3764;
+            top: 95% !important;
+            width: 100%;
+            border: 0;
+        }
+    }
+
+    .top-header {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 27px;
+    }
+
+    .row {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .visual-impairment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        margin-left: auto;
+
+        &-ico {
+            margin-right: 20px;
+            width: 24px;
+        }
+
+        span {
+            color: var(--white, #FFF);
+            /* body */
+            font-family: Proba Pro Lt, sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px; /* 150% */
+            width: 100%;
+            max-width: 125px;
+        }
+
+    }
+
+    .social-header {
+        svg {
+            &:last-child {
+                margin-left: 20px;
+            }
+        }
+    }
+#headerModal{
+    //opacity: 0.5;
+    //background: var(--text, #1D1D1B);
+    .close-modal-header{
+        top: 50px;
+        right: 50px;
+        position: absolute;
+    }
+    .modal-dialog{
+        width: 100%;
+        max-width: 311px;
+        margin: calc((100vh - 318px)/2) auto!important;
+    }
+    .modal-content{
+        background: #1B3764;
+        ul{
+            list-style-type: none;
+            >li{
+            a{
+                color: var(--white, #FFF);
+
+                /* body2 */
+                font-family: Proba Pro;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px; /* 150% */
+                &:hover{
+                    color: var(--buttons_blocks, #FFE358);
+
+                }
+            }
+            &:not(:last-child){
+                margin-bottom: 30px;
+            }
+        }}
+    }
+}
+    .open-modal {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto;
+        width: auto;
+        max-width: 100%;
+        background-color: transparent;
+        padding: 10px;
+        cursor: pointer;
+        box-shadow: none;
+        border: none;
+
+        &:hover, &:focus {
+            border: none;
+            box-shadow: none;
+            outline: none;
+        }
+
+        svg {
+            grid-column: 1;
+            grid-row: span 2;
+            width: 10px;
+            height: 40px;
+            margin: auto 10px auto 0;
+        }
+
+        //h3, span{
+        //    flex: 0 0 auto;
+        //}
+        h3 {
+            grid-column: 2;
+            grid-row: 1;
+            color: var(--white, #FFF);
+            text-align: left;
+            /* h3 */
+            font-family: Proba Pro, sans-serif;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 27px; /* 150% */
+            margin: 0;
+        }
+
+        span {
+            grid-column: 2;
+            grid-row: 2;
+            color: var(--white, #FFF);
+
+            /* body */
+            font-family: Proba Pro Lt, sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px; /* 150% */
+            margin: 0;
+        }
+    }
+
+    h1 {
+text-align: center;
+        margin: 10px auto 0 auto;
+        a{
+            color: var(--white, #FFF);
+            text-align: center;
+
+            /* h1 */
+            font-family: Proba Pro, sans-serif;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 48px; /* 150% */
+            letter-spacing: 0.96px;
+            text-transform: uppercase;
+        &:hover{
+            color: var(--white, #FFF);
+
+            text-decoration: none;
+        }
+        }
+    }
+
+    .head-subtitle {
+
+        color: var(--white, #FFF);
+
+        /* body */
+        font-family: Proba Pro Lt, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 150% */
+    }
+    .open-search{
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        span{
+            color: var(--white, #FFF);
+            font-family: Proba Pro;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px; /* 150% */
+        }
+    }
+    #search-modal {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        background: #122542;
+        padding: 30px 45px 70px 45px;
+        left: 15px;
+        right: 0;
+        z-index: 999;
+
+        .search-close-button {
+            margin-bottom: 20px;
+            background: transparent;
+            border: none;
+            padding: 0;
+
+            &:focus, &:active {
+                outline: none;
+            }
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .search-modal-title {
+            color: var(--white, #FFF);
+
+            /* body2 */
+            font-family: Proba Pro;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px; /* 150% */
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+
+            input[type="search"] {
+                border-radius: 4px;
+                border: 1px solid var(--light_icons, #ABBEDB);
+                background: transparent;
+                width: 100%
+            }
+
+            button[type="submit"] {
+                border-radius: 4px;
+                background: var(--buttons_blocks, #FFE358);
+                display: flex;
+                padding: 8px 16px;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                color: var(--text, #1D1D1B);
+
+                /* button */
+                font-family: Proba Pro, sans-serif;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px; /* 133.333% */
+                width: max-content;
+                margin-left: 20px;
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    header .row {
+        align-items: flex-start;
+
+    }
+    header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .logo {
+            padding-left: 20px;
+        }
+    }
+
+    .header-menu {
+        align-items: flex-end;
+        width: 100%;
+        max-width: 300px;
+
+        .navbar-collapse ul {
+            background: #ffffff;
+            //padding: 20px;
+
+            > li a {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 992px) {
+    .main-header {
+        padding-top: 0 !important;
+    }
+    .top-header{
+        padding-left: 0!important;
+        padding-right: 0!important;
+    }
+
+    .header h1{
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .left-top-header {
+        background: radial-gradient(160.21% 945% at 50% 50%, #254E8F 0%, #1B3B64 100%), #FFF;
+        height: 100%;
+        max-height: 72px;
+        margin-bottom: 30px;
+        padding-left: 27px!important;
+    }
+    main .container{
+        padding: 50px 27px 50px 27px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .logo {
+        img {
+            max-width: 240px;
+        }
+    }
+    .nav-toggle {
+        top: -5px;
+    }
+}

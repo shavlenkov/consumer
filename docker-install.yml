@@ -1,0 +1,23 @@
+version: '3.9'
+
+volumes:
+  php-vendor:
+    name: laravel-data-php-vendor
+    driver: local
+
+services:
+  install:
+    container_name: install
+    image: install
+    build:
+      context: .
+      dockerfile: Dockerfile-install
+    volumes:
+      - ./app/www:/var/www/html
+    entrypoint: ["composer", "create-project", "laravel/laravel", "./"]
+  update:
+    container_name: update
+    image: install
+    volumes:
+      - ./app/www:/var/www/html
+    entrypoint: ["composer", "update"]

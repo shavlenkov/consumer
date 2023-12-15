@@ -1,0 +1,233 @@
+# В среде разработки включена БД MySQL
+version: '3.9'
+
+networks:
+  app-network:
+    name: laravel-network
+    driver: bridge
+
+volumes:
+  mysql-data:
+    name: laravel-data-db
+    driver: local
+  phpmyadmin-data:
+    name: laravel-data-db-admin
+    driver: local
+  redis-data:
+    name: laravel-data-redis
+    driver: local
+  dbbackup-data:
+    name: laravel-data-dbbackup
+    driver: local
+  node-modules:
+    name: laravel-data-node-modules
+    driver: local
+  php-storage-framework:
+    name: laravel-data-php-storage-framework
+    driver: local
+  php-storage-logs:
+    name: laravel-data-php-storage-logs
+    driver: local
+  php-vendor:
+    name: laravel-data-php-vendor
+    driver: local
+
+services:
+  nginx:
+    restart: unless-stopped
+    container_name: laravel-nginx
+    image: laravel-nginx:latest
+    user: root:root
+    working_dir: /var/www/html
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./app/www/public:/var/www/html/public
+      - ./app/www/resources:/var/www/html/resources
+      - ./app/www/storage/app:/var/www/html/storage/app
+    depends_on:
+      - php
+      - db
+      - redis
+      - phpmyadmin
+#      - npm
+#      - cron
+#      - queue
+#      - dbbackup
+    links:
+      - php
+    networks:
+      - app-network
+  php:
+    restart: unless-stopped
+    container_name: laravel-php
+    image: laravel-php:latest
+    user: root:root
+    working_dir: /var/www/html
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    ports:
+      - "8009:9000"
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/conf.d/default.ini
+      - ./app/www:/var/www/html
+      - php-vendor:/var/www/html/vendor
+    networks:
+      - app-network
+  redis:
+    restart: unless-stopped
+    container_name: laravel-redis
+    image: redis:7.0.11
+    user: root:root
+    ports:
+      - "8001:6379"
+    volumes:
+      - redis-data:/data
+      - ./redis/config/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - app-network
+  redis-admin:
+    restart: unless-stopped
+    container_name: laravel-predis
+    image: erikdubbelboer/phpredisadmin:latest
+    user: root:root
+    environment:
+      REDIS_1_HOST: redis
+      REDIS_1_PORT: 6379
+    ports:
+      - "8004:80"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+  db:
+    restart: unless-stopped
+    container_name: laravel-db
+    image: mysql:latest
+    user: root:root
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "8002:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "fg(45;liJFs#fdR&g!4"
+      MYSQL_DATABASE: kr_dpss
+      MYSQL_USER: user
+      MYSQL_PASSWORD: "%GzpsfP2Wzq93w(63-b!y&R#RS"
+    volumes:
+      - mysql-data:/var/lib/mysql
+#      - ./db/config/mysql.cnf:/etc/mysql/conf.d/mysql-cdl.cnf
+#      - ./db/data/last/202307040700.cdl.sql:/home/202307040700.cdl.sql
+#      - ./db/restore-mysql.sh:/docker-entrypoint-initdb.d/restore-mysql.sh
+    networks:
+      - app-network
+  phpmyadmin:
+    restart: unless-stopped
+    container_name: laravel-db-admin
+    image: phpmyadmin:latest
+    user: root:root
+    ports:
+      - "8007:80"
+    environment:
+      PMA_ARBITRARY: 1
+      MYSQL_USER: user
+      MYSQL_PASSWORD: "%GzpsfP2Wzq93w(63-b!y&R#RS"
+      MAX_EXECUTION_TIME: 120
+      MEMORY_LIMIT: 256M
+      UPLOAD_LIMIT: 50M
+      PMA_VERBOSE: MySQL
+      PMA_PMADB: mysql
+    volumes:
+      - phpmyadmin-data:/etc/phpmyadmin
+    networks:
+      - app-network
+#  dbbackup:
+#    restart: unless-stopped
+#    container_name: laravel-db-backup
+#    image: fradelg/mysql-cron-backup:latest
+#    user: root:root
+#    ports:
+#      - "8005:80"
+#    volumes:
+#      - ./db/data/last:/backup
+#    environment:
+#      MYSQL_HOST: db
+#      MYSQL_PORT: 3306
+#      MYSQL_DB: cdl
+#      MYSQL_USER: root
+#      MYSQL_PASS: "fg(45;liJFs#fdR&g!4"
+#      MAX_BACKUPS: 10
+#      INIT_RESTORE_LATEST: /backup/202307041800.cdl.sql.gz
+#      # Every an hour
+#      CRON_TIME: "* */12 * * *"
+#      # Make it small
+#      GZIP_LEVEL: 9
+#    networks:
+#      - app-network
+#  npm:
+#    container_name: laravel-npm
+#    image: laravel-npm:latest
+#    user: root:root
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-npm
+#    ports:
+#      - "3001:3000"
+#    volumes:
+#      - ./app/www/public:/home/node/project/public
+#      - ./app/www/lang:/home/node/project/lang
+#      - ./app/www/resources:/home/node/project/resources
+#      - ./app/www/storage/app:/home/node/project/storage/app
+#      - ./app/www/.env:/home/node/project/.env
+#      - ./app/www/package.json:/home/node/project/package.json
+#      - ./app/www/tsconfig.json:/home/node/project/tsconfig.json
+#      - ./app/www/vite.config.js:/home/node/project/vite.config.js
+#    entrypoint: [ "npm", "run", "build", "--" ] #, "--", #"--host", "0.0.0.0"
+#    environment:
+#      APP_ENV: production
+##    entrypoint: [ "npm", "run", "build", "--" ]
+##    environment:
+##      APP_ENV: local
+#    networks:
+#      - app-network
+  cron:
+    restart: unless-stopped
+    container_name: laravel-cron
+    image: laravel-cron:latest
+    user: root:root
+    ports:
+      - "8006:80"
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    volumes:
+      - ./app/www:/var/www/html
+      - node-modules:/var/www/html/node_modules
+      - php-storage-framework:/var/www/html/storage/framework
+      - php-storage-logs:/var/www/html/storage/logs
+    entrypoint: [ 'php', 'artisan', 'schedule:work' ]
+    networks:
+      - app-network
+  queue:
+    restart: unless-stopped
+    container_name: laravel-queue
+    image: laravel-queue:latest
+    user: root:root
+    ports:
+      - "8008:80"
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    volumes:
+      - ./app/www:/var/www/html
+      - node-modules:/var/www/html/node_modules
+      - php-storage-framework:/var/www/html/storage/framework
+      - php-storage-logs:/var/www/html/storage/logs
+    entrypoint: [ 'php', 'artisan', 'queue:listen' ]
+    networks:
+      - app-network
